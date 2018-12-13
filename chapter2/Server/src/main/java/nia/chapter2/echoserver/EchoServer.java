@@ -1,5 +1,7 @@
 package nia.chapter2.echoserver;
 
+import java.net.InetSocketAddress;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -7,8 +9,6 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-
-import java.net.InetSocketAddress;
 
 /**
  * Listing 2.2 EchoServer class
@@ -24,6 +24,7 @@ public class EchoServer {
 
     public static void main(String[] args)
         throws Exception {
+    		args = new String[]{"8881"};
         if (args.length != 1) {
             System.err.println("Usage: " + EchoServer.class.getSimpleName() +
                 " <port>"
@@ -45,7 +46,7 @@ public class EchoServer {
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     public void initChannel(SocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(serverHandler);
+                        ch.pipeline().addLast(serverHandler);//Adding EchoServerHandler to pipeline
                     }
                 });
 
